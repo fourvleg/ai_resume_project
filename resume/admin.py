@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Resume, Experience, Skill, Education
 
-# Register your models here.
+registered_models = [Resume, Experience, Skill, Education]
+
+admin.site.register(registered_models)
