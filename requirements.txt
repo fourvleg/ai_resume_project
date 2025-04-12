@@ -1,0 +1,6 @@
+Django>=4.2
+djangorestframework>=3.14
+openai>=1.14.0
+WeasyPrint>=60.0
+python-dotenv>=1.0.0
+Pillow>=10.0.0
