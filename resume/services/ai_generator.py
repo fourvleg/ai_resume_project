@@ -41,13 +41,9 @@ def generate_resume_data(full_name, position, skills):
         model="deepseek/deepseek-chat:free",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7,
-        response_format={"type": "json_object"}  # Убедитесь, что ответ будет в JSON
     )
-
-    # Извлекаем JSON из ответа (новый синтаксис)
-    content = response.choices[0].message.content
     
-    content = re.sub(r"```(?:json)?\n(.+?)```", r"\1", content, flags=re.DOTALL)
+    content = re.sub(r"```(?:json)?\n(.+?)```", r"\1", response.choices[0].message.content, flags=re.DOTALL)
 
     try:
         return json.loads(content)
