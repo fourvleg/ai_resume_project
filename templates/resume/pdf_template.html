@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; }
+    h1 { color: #333; }
+    h2 { margin-top: 30px; }
+    .section { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>{{ resume.full_name }}</h1>
+  <p><strong>Позиция:</strong> {{ resume.desired_position }}</p>
+  <div class="section">
+    <h2>Краткое описание</h2>
+    <p>{{ resume.summary }}</p>
+  </div>
+
+  <div class="section">
+    <h2>Опыт работы</h2>
+    {% for exp in resume.experiences.all %}
+      <p><strong>{{ exp.position }}</strong> в {{ exp.company_name }} ({{ exp.start_date }} - {{ exp.end_date }})</p>
+      <p>{{ exp.description }}</p>
+    {% endfor %}
+  </div>
+
+  <div class="section">
+    <h2>Образование</h2>
+    <p>{{ resume.education }}</p>
+  </div>
+
+  <div class="section">
+    <h2>Навыки</h2>
+    <ul>
+      {% for skill in resume.skills.all %}
+        <li>{{ skill.skill_name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
