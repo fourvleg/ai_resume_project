@@ -10,7 +10,7 @@ This project allows users to generate a resume (PDF) with minimal input data usi
 - Collects basic user data: full name, desired position, and skills
 - Generates resume text using AI
 - Creates a PDF file from an HTML template
-- Telegram bot integration for easy access
+- Telegram bot integration for easy access(https://github.com/fourvleg/resume_simple_bot)
 - REST API available for frontend or third-party clients
 
 ---
@@ -38,7 +38,7 @@ ________________________________________________________________________________
 - Получение данных от пользователя: имя, позиция, навыки
 - Генерация текста резюме с помощью AI
 - Создание PDF-файла из шаблона
-- Используйте Telegram-бот для удобного доступа
+- Используйте Telegram-бот для удобного доступа(https://github.com/fourvleg/resume_simple_bot)
 - REST API для фронтенда или сторонних клиентов
 
 ---
