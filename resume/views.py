@@ -6,6 +6,7 @@ from .serializers import ResumeSerializer
 from .services.ai_generator import generate_resume_data
 from .services.pdf_generator import render_resume_to_pdf
 
+
 @api_view(["POST"])
 def generate_resume(request):
     data = request.data
@@ -16,7 +17,6 @@ def generate_resume(request):
     if not full_name or not position:
         return Response({"error": "full_name and desired_position are required"}, status=400)
 
-    # 🔸 Генерируем данные с помощью OpenAI
     try:
         ai_result = generate_resume_data(full_name, position, skills)
         print("AI Result:", ai_result)
@@ -26,7 +26,6 @@ def generate_resume(request):
     if "summary" not in ai_result:
         return Response({"error": "AI response missing 'summary' key", "ai_result": ai_result}, status=500)
     
-    # 🔹 Создаём резюме
     resume = Resume.objects.create(
         full_name=full_name,
         desired_position=position,
@@ -34,7 +33,6 @@ def generate_resume(request):
         education=ai_result["education"]
     )
 
-    # 🔹 Сохраняем опыт работы
     for exp in ai_result.get("experience", []):
         Experience.objects.create(
             resume=resume,
@@ -45,14 +43,12 @@ def generate_resume(request):
             description=exp["description"]
         )
 
-    # 🔹 Сохраняем навыки
     for skill in skills:
         Skill.objects.create(resume=resume, skill_name=skill)
 
-    # 🔸 Возвращаем сериализованные данные
     serializer = ResumeSerializer(resume)
 
-    pdf_url = render_resume_to_pdf(resume)
+    pdf_url = render_resume_to_pdf(resume, request)
 
     return Response({**serializer.data, "pdf": pdf_url}, status=201)
 

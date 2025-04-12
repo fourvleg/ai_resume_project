@@ -3,15 +3,16 @@ import re
 
 from openai import OpenAI
 
-# Инициализация клиента с новым синтаксисом
-client = OpenAI(api_key="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")
 
+
+# ai form https://openrouter
 client = OpenAI(
-  base_url="https://openrouter.ai/api/v1",
-  api_key="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",
+  base_url="chat.openrouter.ai", 
+  api_key="your_api_key_here",  #API
 )
 
 
+#промт для генерации(для ваших шаловливых ручек)
 def generate_resume_data(full_name, position, skills):
     prompt = f"""
 Ты — профессиональный карьерный консультант. Сгенерируй краткое резюме, опыт работы (2-3 места), и образование для соискателя.
@@ -48,7 +49,6 @@ def generate_resume_data(full_name, position, skills):
     try:
         return json.loads(content)
     except json.JSONDecodeError:
-        # Если возникла ошибка парсинга, возвращаем структуру с ошибкой
         return {
             "error": "Не удалось распарсить ответ",
             "raw_response": content
