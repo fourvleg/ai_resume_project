@@ -1,5 +1,7 @@
-from openai import OpenAI
 import json
+import re
+
+from openai import OpenAI
 
 # Инициализация клиента с новым синтаксисом
 client = OpenAI(api_key="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")
@@ -45,6 +47,8 @@ def generate_resume_data(full_name, position, skills):
     # Извлекаем JSON из ответа (новый синтаксис)
     content = response.choices[0].message.content
     
+    content = re.sub(r"```(?:json)?\n(.+?)```", r"\1", content, flags=re.DOTALL)
+
     try:
         return json.loads(content)
     except json.JSONDecodeError:

@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import Resume, Experience, Skill
 from .serializers import ResumeSerializer
 from .services.ai_generator import generate_resume_data
+from .services.pdf_generator import render_resume_to_pdf
 
 @api_view(["POST"])
 def generate_resume(request):
@@ -50,5 +51,8 @@ def generate_resume(request):
 
     # 🔸 Возвращаем сериализованные данные
     serializer = ResumeSerializer(resume)
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    pdf_url = render_resume_to_pdf(resume)
+
+    return Response({**serializer.data, "pdf": pdf_url}, status=201)
 
